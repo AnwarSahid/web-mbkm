@@ -21,7 +21,7 @@
                         <img class=" px-5 h-12" src="{{ asset('mbkm.png') }}">
                         <img class=" px-2 h-12" src="{{ asset('unila.png') }}">
                     </div>
-                    <div class="flex ">
+                    <div class="flex">
 
                         <h3 class="mt-2 font-sans  text-gray-800 dark:text-white">
                             {{ Auth::user()->name }}</h3>
@@ -42,8 +42,7 @@
 
                     <!-- component -->
                     <div class="holder flex">
-                        <img class="max-h-20 w-full opacity-80 absolute top-0" style="z-index:-1"
-                            src="https://unsplash.com/photos/h0Vxgz5tyXA/download?force=true&w=640" alt="" />
+
 
                         <div class="profile w-full flex m-3 ml-4 text-white">
                             <img class="w-20 h-20 p-1 bg-white rounded-full"
@@ -176,7 +175,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#"
+                                        <a href="/hasil-evaluasi"
                                             class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 class="h-6 w-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"

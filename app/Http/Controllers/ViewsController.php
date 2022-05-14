@@ -8,37 +8,41 @@ use Illuminate\Support\Facades\Auth;
 
 class ViewsController extends Controller
 {
-    public function updateprofile()
+    public function Updateprofile()
     {
         return view('user/update_profile');
     }
-    public function contact()
+    public function Contact()
     {
         return view('user/contact');
     }
-    public function infoAcedemic()
+    public function InfoAcedemic()
     {
         return view('user/info_academic');
     }
-    public function infoMedic()
+    public function InfoMedic()
     {
         return view('user/info_medic');
     }
-    public function setMbkm()
+    public function SetMbkm()
     {
         return view('user/program_mbkm');
     }
-    public function infoLerningAggrement()
+    public function InfoLerningAggrement()
     {
         return view('user/learning_aggrement');
     }
-    public function personalStatement()
+    public function PersonalStatement()
     {
         return view('user/personal_statement');
     }
-    public function status()
+    public function Status()
     {
         $user = Auth::user();
         return view('user/status', compact("user"));
+    }
+    public function HasilEvaluasi()
+    {
+        return view('user/hasil_evaluasi');
     }
 }

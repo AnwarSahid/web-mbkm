@@ -17,11 +17,21 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('npm')->unique()->nullable();
+            $table->string('role')->default('mahasiswa');
+            $table->string('place_of_birth')->nullable();
+            $table->string('birth_date')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('nation')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('id_medsos')->nullable();
+            $table->string('no_idcard')->nullable();
+            $table->string('scan_idcard')->nullable();
+            $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
         });
     }

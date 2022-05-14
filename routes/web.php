@@ -18,16 +18,16 @@ use App\Http\Controllers\ViewsController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/update-profile', [ViewsController::class, 'updateprofile'])->name('update_profile');
-Route::get('/kontak-darurat', [ViewsController::class, 'contact'])->name('contact');
-Route::get('/informasi-akademik', [ViewsController::class, 'infoAcedemic'])->name('contact');
-Route::get('/informasi-medis-dan-lainya', [ViewsController::class, 'infoMedic'])->name('contact');
-Route::get('/program-MBKM', [ViewsController::class, 'setMbkm'])->name('contact');
-Route::get('/learning-aggrement', [ViewsController::class, 'infoLerningAggrement'])->name('contact');
-Route::get('/personal-statement', [ViewsController::class, 'personalStatement'])->name('contact');
+Route::get('/update-profile', [ViewsController::class, 'Updateprofile'])->name('updateprofile');
+Route::get('/kontak-darurat', [ViewsController::class, 'Contact'])->name('contactemergency');
+Route::get('/informasi-akademik', [ViewsController::class, 'InfoAcedemic'])->name('infoacademic');
+Route::get('/informasi-medis-dan-lainya', [ViewsController::class, 'InfoMedic'])->name('infomedic');
+Route::get('/program-MBKM', [ViewsController::class, 'setMbkm'])->name('programmbkm');
+Route::get('/learning-aggrement', [ViewsController::class, 'InfoLerningAggrement'])->name('learningaggrement');
+Route::get('/personal-statement', [ViewsController::class, 'PersonalStatement'])->name('personalstatement');
 Route::get('/contact', [ViewsController::class, 'contact'])->name('contact');
-Route::get('/status', [ViewsController::class, 'status'])->name('contact');
-Route::get('/hasil-evaluasi', [ViewsController::class, 'contact'])->name('contact');
+Route::get('/status', [ViewsController::class, 'status'])->name('status');
+Route::get('/hasil-evaluasi', [ViewsController::class, 'HasilEvaluasi'])->name('hasilvaluasi');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
