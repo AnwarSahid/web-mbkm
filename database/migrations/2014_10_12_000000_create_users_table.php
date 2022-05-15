@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('npm')->unique()->nullable();
+            $table->string('npm')->nullable();
             $table->string('role')->default('mahasiswa');
+            $table->string('address')->nullable();
             $table->string('place_of_birth')->nullable();
             $table->string('birth_date')->nullable();
             $table->string('phone')->nullable();

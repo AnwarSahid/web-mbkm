@@ -15,7 +15,8 @@ class ViewsController extends Controller
     }
     public function Contact()
     {
-        return view('user/contact');
+        $user = Auth::user();
+        return view('user/contact', compact('user'));
     }
     public function InfoAcedemic()
     {

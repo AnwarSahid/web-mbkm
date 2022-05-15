@@ -15,13 +15,13 @@
                     Lengkap</label>
                 <input type="text" id="name" name="name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Nama Lengkap">
+                    placeholder="Nama Lengkap" value="{{ old('name') ?? $user->name }}">
             </div>
             <div>
                 <label for="npm" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">NPM/NIM</label>
                 <input type="text" id="npm" name="npm"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="1815061001">
+                    placeholder="1815061001" value="{{ old('npm') ?? $user->npm }}">
             </div>
             <div>
                 <label for="place_of_birth"
@@ -29,7 +29,7 @@
                     Tahir</label>
                 <input type="text" id="place_of_birth" name="place_of_birth"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Bandar Lampung">
+                    placeholder="Bandar Lampung" value="{{ old('place_of_birth') ?? $user->place_of_birth }}">
             </div>
             <div>
                 <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tanggal
@@ -52,15 +52,15 @@
             <div>
                 <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">NO
                     Handphone</label>
-                <input type="tel" id="phone"
+                <input type="tel" id="phone" name="phone"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Format: 62853-------">
             </div>
             <div>
-                <label for="kewarganegaraan"
+                <label for="nation"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kewarganegaraan
                 </label>
-                <select id="kewarganegaraan" name="kewarganegaraan"
+                <select id="nation" name="nation"
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option value="">Pilih Kewarganegaraan</option>
                     <option value="indonesia">Indonesia</option>
@@ -68,10 +68,10 @@
                 </select>
             </div>
             <div>
-                <label for="jenis_kelamin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Jenis
+                <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Jenis
                     Kelamin
                 </label>
-                <select id="jenis_kelamin" name="jenis_kelamin"
+                <select id="gender" name="gender"
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option value="">Pilih Jenis Kelamin</option>
                     <option value="Laki-laki">Laki-Laki</option>
@@ -79,17 +79,17 @@
                 </select>
             </div>
             <div>
-                <label for="contact_social"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kontak Media
+                <label for="id_medsos" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kontak
+                    Media
                     Sosial</label>
-                <input type="text" id="contact_social"
+                <input type="text" id="id_medsos" name="id_medsos"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="ID Facebook/Instagram/Twitwer">
             </div>
             <div>
-                <label for="no_ktp" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nomer
+                <label for="no_idcard" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nomer
                     NIK/KTP</label>
-                <input type="text" id="no_ktp"
+                <input type="text" id="no_idcard" name="no_idcard"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="788872732183927">
             </div>
@@ -97,14 +97,14 @@
         <div class="mb-6">
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email
             </label>
-            <input type="email" id="email"
+            <input type="email" id="email" name="email"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="unila@mail.com">
         </div>
         <div class="mb-6">
-            <label for="addres" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Alamat
+            <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Alamat
                 Rumah</label>
-            <input type="text" id="addres"
+            <input type="text" id="address" name="address"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Jl. Prof. Dr. Sumantri Brojonegoro No. 1, Rajabasa, Kota Bandarlampung">
         </div>

@@ -1,20 +1,21 @@
 <x-app-layout>
 
-    <form>
+    <form action="{{ route('postcontactemergency') }}" enctype="multipart/form-data" method="POST">
+        @csrf
         <div class="grid gap-6 mb-6 lg:grid-cols-2">
             <div>
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nama
                     Lengkap</label>
-                <input type="text" id="name"
+                <input type="text" id="name" name="name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Nama Lengkap" required>
+                    placeholder="Nama Lengkap">
             </div>
             <div>
-                <label for="hubungan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Hubungan
+                <label for="connection" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Hubungan
                     Dengan Mahasiswa</label>
-                <input type="text" id="hubungan"
+                <input type="text" id="connection" name="connection"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="orang Tua, Kakak/adik ,Saudara" required>
+                    placeholder="orang Tua, Kakak/adik ,Saudara">
             </div>
 
             <div>
@@ -22,16 +23,15 @@
                     Handphone</label>
                 <input type="tel" id="phone"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Format: 62853-------" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required>
+                    placeholder="Format: 62853-------" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
             </div>
 
             <div>
-                <label for="contact_social"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kontak Media
+                <label for="d" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kontak Media
                     Sosial</label>
                 <input type="text" id="contact_social"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="ID Facebook/Instagram/Twitwer" required>
+                    placeholder="ID Facebook/Instagram/Twitwer">
             </div>
 
         </div>
@@ -40,14 +40,14 @@
             </label>
             <input type="email" id="email"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="unila@mail.com" required>
+                placeholder="unila@mail.com">
         </div>
         <div class="mb-6">
             <label for="addres" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Alamat
                 Rumah</label>
             <input type="text" id="addres"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Jl. Prof. Dr. Sumantri Brojonegoro No. 1, Rajabasa, Kota Bandarlampung" required>
+                placeholder="Jl. Prof. Dr. Sumantri Brojonegoro No. 1, Rajabasa, Kota Bandarlampung">
         </div>
 
 

@@ -23,6 +23,7 @@ Route::get('/', function () {
 Route::get('/update-profile', [ViewsController::class, 'Updateprofile'])->name('updateprofile');
 Route::put('/update-profile/{id}', [UploadController::class, 'Updateprofile'])->name('pushupdateprofile');
 Route::get('/kontak-darurat', [ViewsController::class, 'Contact'])->name('contactemergency');
+Route::post('/kontak-darurat', [UploadController::class, 'Contact'])->name('postcontactemergency');
 Route::get('/informasi-akademik', [ViewsController::class, 'InfoAcedemic'])->name('infoacademic');
 Route::get('/informasi-medis-dan-lainya', [ViewsController::class, 'InfoMedic'])->name('infomedic');
 Route::get('/program-MBKM', [ViewsController::class, 'setMbkm'])->name('programmbkm');
