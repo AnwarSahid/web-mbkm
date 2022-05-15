@@ -8,6 +8,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="../path/to/flowbite/dist/datepicker.js"></script>
     <script src="https://unpkg.com/flowbite@1.4.5/dist/datepicker.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <title>Document</title>
 </head>
 
@@ -23,13 +24,39 @@
                     </div>
                     <div class="flex">
 
-                        <h3 class="mt-2 font-sans  text-gray-800 dark:text-white">
-                            {{ Auth::user()->name }}</h3>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 " fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="1">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        <div x-data="{ dropdownOpen: false }" class="relative ">
+                            <button @click="dropdownOpen = !dropdownOpen"
+                                class="relative z-10 block flex bg-white rounded p-2 ">
+
+                                <h3 class="mt-2 font-sans  text-gray-800 dark:text-white">
+                                    {{ Auth::user()->name }}</h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mt-2 text-black"
+                                    viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </button>
+
+                            <div x-show="dropdownOpen" @click="dropdownOpen = false"
+                                class="fixed inset-0 h-full w-full z-10"></div>
+
+                            <div x-show="dropdownOpen"
+                                class="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-20">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200">
+                                    <span class="text-gray-600">Profile</span></a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200">
+                                    <span class="text-gray-600">Status</span></a>
+                                <form method="POST" action="{{ route('logout') }}" class="inline">
+                                    @csrf
+
+                                    <button type="submit"
+                                        class="underline text-sm text-gray-600 hover:text-gray-900 ml-2">
+                                        {{ __('Log Out') }}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
 
                 </div>

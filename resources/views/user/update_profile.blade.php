@@ -3,32 +3,36 @@
 
     {{-- <a href="/update_profile">update profile</a> --}}
     <!-- Begin Navbar -->
+    {{-- {{ $user->id }} --}}
 
-    <form>
+    <form action="{{ route('pushupdateprofile', ['id' => auth()->user()->id]) }}" enctype="multipart/form-data"
+        method="POST">
+        @csrf
+        @method('PUT')
         <div class="grid gap-6 mb-6 lg:grid-cols-2">
             <div>
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nama
                     Lengkap</label>
-                <input type="text" id="name"
+                <input type="text" id="name" name="name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Nama Lengkap" required>
+                    placeholder="Nama Lengkap">
             </div>
             <div>
                 <label for="npm" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">NPM/NIM</label>
-                <input type="text" id="npm"
+                <input type="text" id="npm" name="npm"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="1815061001" required>
+                    placeholder="1815061001">
             </div>
             <div>
-                <label for="tempat_lahir" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tempat
+                <label for="place_of_birth"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tempat
                     Tahir</label>
-                <input type="text" id="tempat_lahir"
+                <input type="text" id="place_of_birth" name="place_of_birth"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Bandar Lampung" required>
+                    placeholder="Bandar Lampung">
             </div>
             <div>
-                <label for="tanggal_lahir"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tanggal
+                <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tanggal
                     Lahir</label>
 
                 <div class="relative">
@@ -40,7 +44,7 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                     </div>
-                    <input datepicker="" type="text"
+                    <input datepicker="" type="text" name="birth_date"
                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker-input"
                         placeholder="Select date">
                 </div>
@@ -50,7 +54,7 @@
                     Handphone</label>
                 <input type="tel" id="phone"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Format: 62853-------" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required>
+                    placeholder="Format: 62853-------">
             </div>
             <div>
                 <label for="kewarganegaraan"
@@ -80,14 +84,14 @@
                     Sosial</label>
                 <input type="text" id="contact_social"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="ID Facebook/Instagram/Twitwer" required>
+                    placeholder="ID Facebook/Instagram/Twitwer">
             </div>
             <div>
                 <label for="no_ktp" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nomer
                     NIK/KTP</label>
                 <input type="text" id="no_ktp"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="788872732183927" required>
+                    placeholder="788872732183927">
             </div>
         </div>
         <div class="mb-6">
@@ -95,14 +99,14 @@
             </label>
             <input type="email" id="email"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="unila@mail.com" required>
+                placeholder="unila@mail.com">
         </div>
         <div class="mb-6">
             <label for="addres" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Alamat
                 Rumah</label>
             <input type="text" id="addres"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Jl. Prof. Dr. Sumantri Brojonegoro No. 1, Rajabasa, Kota Bandarlampung" required>
+                placeholder="Jl. Prof. Dr. Sumantri Brojonegoro No. 1, Rajabasa, Kota Bandarlampung">
         </div>
 
         <div class="mb-6">

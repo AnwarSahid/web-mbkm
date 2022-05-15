@@ -4,14 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class ViewsController extends Controller
+class UploadController extends Controller
 {
-    public function Updateprofile()
+    public function Updateprofile(Request $request, User $user, $id)
     {
-        $user = Auth::user();
-        return view('user/update_profile', compact('user'));
+
+        $this->validate($request, [
+            'name' => 'required',
+            'npm' => 'required',
+            'birth_date' => 'required',
+            'place_of_birth' => 'required'
+
+        ]);
+        $user = User::find($id);
+        $user->update([
+            'name' => $request['name'],
+            'npm' => $request['npm'],
+            'birth_date' => $request['birth_date'],
+            'place_of_birth' => $request['place_of_birth']
+        ]);
+        // return view('user/update_profile');
+        return view('user/update_profile')->with('success', ' Data telah diperbaharui!');
     }
     public function Contact()
     {

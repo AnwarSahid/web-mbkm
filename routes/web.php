@@ -1,6 +1,8 @@
 <?php
 
 // use Illuminate\Routing\ViewsController;
+
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ViewsController;
 
@@ -19,6 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/update-profile', [ViewsController::class, 'Updateprofile'])->name('updateprofile');
+Route::put('/update-profile/{id}', [UploadController::class, 'Updateprofile'])->name('pushupdateprofile');
 Route::get('/kontak-darurat', [ViewsController::class, 'Contact'])->name('contactemergency');
 Route::get('/informasi-akademik', [ViewsController::class, 'InfoAcedemic'])->name('infoacademic');
 Route::get('/informasi-medis-dan-lainya', [ViewsController::class, 'InfoMedic'])->name('infomedic');
