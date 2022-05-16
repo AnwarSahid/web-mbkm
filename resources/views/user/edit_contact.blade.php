@@ -1,22 +1,32 @@
 <x-app-layout>
-
-
-    <form action="{{ route('postcontactemergency') }}" enctype="multipart/form-data" method="POST">
+    @if (session()->has('message'))
+        <div class="alert h-10 bg-green-500 text-white rounded-lg show flex items-center mb-2" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd" />
+            </svg>
+            {{ session()->get('message') }}
+        </div>
+    @endif
+    <form action="{{ route('updatecontactemergency', ['id' => $user->id]) }}" enctype="multipart/form-data"
+        method="POST">
         @csrf
+        @method('PUT')
         <div class="grid gap-6 mb-6 lg:grid-cols-2">
             <div>
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nama
                     Lengkap</label>
                 <input type="text" id="name" name="name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Nama Lengkap">
+                    placeholder="Nama Lengkap" value="{{ $user->getcontact->name }}">
             </div>
             <div>
                 <label for="connection" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Hubungan
                     Dengan Mahasiswa</label>
                 <input type="text" id="connection" name="connection"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="orang Tua, Kakak/adik ,Saudara">
+                    placeholder="orang Tua, Kakak/adik ,Saudara" value="{{ $user->getcontact->connection }}">
             </div>
 
             <div>
@@ -24,7 +34,7 @@
                     Handphone</label>
                 <input type="text" id="phone" name="phone"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Format: 62853-------">
+                    placeholder="Format: 62853-------" value="{{ $user->getcontact->phone }}">
             </div>
 
             <div>
@@ -33,7 +43,7 @@
                     Sosial</label>
                 <input type="text" id="id_medsos" name="id_medsos"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="ID Facebook/Instagram/Twitwer">
+                    placeholder="ID Facebook/Instagram/Twitwer" value="{{ $user->getcontact->id_medsos }}">
             </div>
 
         </div>
@@ -42,14 +52,15 @@
             </label>
             <input type="email" id="email" name="email"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="unila@mail.com">
+                placeholder="unila@mail.com" value="{{ $user->getcontact->email }}">
         </div>
         <div class="mb-6">
             <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Alamat
                 Rumah</label>
             <input type="text" id="address" name="address"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Jl. Prof. Dr. Sumantri Brojonegoro No. 1, Rajabasa, Kota Bandarlampung">
+                placeholder="Jl. Prof. Dr. Sumantri Brojonegoro No. 1, Rajabasa, Kota Bandarlampung"
+                value="{{ $user->getcontact->address }}">
         </div>
 
 
@@ -83,8 +94,6 @@
         <button type="submit"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
     </form>
-
-
 
 
 

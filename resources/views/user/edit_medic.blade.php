@@ -11,13 +11,15 @@
     @endif
     <div class="flex justify-center">
         <div>
-            <form action="{{ route('storemedic') }}" enctype="multipart/form-data" method="POST">
+            <form action="{{ route('updatemedic', ['id' => $user->id]) }}" enctype="multipart/form-data" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="form-check">
 
-                    <div class="font-sans">1. Apakah anda memiliki disabilitas atau kondisii yang perlu diketahui
+                    <div class="font-sans">1. Apakah anda memiliki disabilitas atau kondisi yang perlu diketahui
                         oleh
-                        Universitas tujuan?</div>
+                        Universitas tujuan? Jawaban Kamu <span
+                            class="text-red-500 font-bold">({{ $user->getmedic->disability }})</span></div>
                     <input
                         class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                         type="radio" value="YA" name="disability" id="disability">
@@ -37,7 +39,8 @@
                 </div>
                 <div class="form-check mt-8">
 
-                    <div class="font-sans">2. Apakah anda memliki Alergi??</div>
+                    <div class="font-sans">2. Apakah anda memliki Alergi?? Jawaban Kamu <span
+                            class="text-red-500 font-bold">({{ $user->getmedic->alergy }})</span></div>
                     <input
                         class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                         type="radio" value="YA" name="alergy" id="alergy">
@@ -60,7 +63,8 @@
 
                 <div class="form-check mt-8">
                     <div class="font-sans">3. Apakah anda memperkirakan adanya kesulitan lain yang mungkin akan
-                        berdampak pada studi anda?</div>
+                        berdampak pada studi anda? Jawaban Kamu <span
+                            class="text-red-500 font-bold">({{ $user->getmedic->other_difficulties }})</span></div>
                     <input
                         class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                         type="radio" value="YA" name="other_difficulties" id="other_difficulties">

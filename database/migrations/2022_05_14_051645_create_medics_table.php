@@ -14,8 +14,8 @@ class CreateMedicsTable extends Migration
     public function up()
     {
         Schema::create('medics', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(\App\Models\User::class, 'user_id');
+
+            $table->foreignIdFor(\App\Models\User::class, 'id');
             $table->string('disability');
             $table->string('alergy');
             $table->string('other_difficulties');

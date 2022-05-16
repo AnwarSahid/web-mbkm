@@ -68,4 +68,17 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function getcontact()
+    {
+        return $this->hasOne(Contact::class, 'id', 'id');
+    }
+    public function getacademic()
+    {
+        return $this->hasOne(Academic::class, 'id', 'id');
+    }
+    public function getmedic()
+    {
+        return $this->hasOne(Medic::class, 'id', 'id');
+    }
 }

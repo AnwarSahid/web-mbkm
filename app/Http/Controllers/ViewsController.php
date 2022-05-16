@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Academic;
+use App\Models\Contact;
+use App\Models\Medic;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,15 +19,36 @@ class ViewsController extends Controller
     public function Contact()
     {
         $user = Auth::user();
-        return view('user/contact', compact('user'));
+        $get_id = $user->id;
+        $check = Contact::where('id', $get_id)->exists();
+        // $data = Contact::user();
+        if ($check) {
+            return view('user/edit_contact', compact('user'));
+        } else {
+            return view('user/contact', compact('user'));
+        }
     }
     public function InfoAcedemic()
     {
-        return view('user/info_academic');
+        $user = Auth::user();
+        $get_id = $user->id;
+        $check = Academic::where('id', $get_id)->exists();
+        if ($check) {
+            return view('user/edit_academic', compact('user'));
+        } else {
+            return view('user/info_academic', compact('user'));
+        }
     }
     public function InfoMedic()
     {
-        return view('user/info_medic');
+        $user = Auth::user();
+        $get_id = $user->id;
+        $check = Medic::where('id', $get_id)->exists();
+        if ($check) {
+            return view('user/edit_medic', compact('user'));
+        } else {
+            return view('user/info_medic', compact('user'));
+        }
     }
     public function SetMbkm()
     {

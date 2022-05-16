@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UploadController extends Controller
 {
@@ -18,10 +19,13 @@ class UploadController extends Controller
             'address' => 'required',
             'birth_date' => 'required',
             'phone' => 'required',
+            'email' => 'required',
             'nation' => 'required',
             'gender' => 'required',
             'id_medsos' => 'required',
             'no_idcard' => 'required',
+            // 'scan_idcard' => 'required|mimes:pdf,jpg,jpeg,png,jfif|max:2048 '
+
         ]);
         $user = User::find($id);
         $user->update([
@@ -32,25 +36,42 @@ class UploadController extends Controller
             'phone' => $request['phone'],
             'nation' => $request['nation'],
             'gender' => $request['gender'],
-            'address' => $request['gender'],
+            'address' => $request['address'],
+            'email' => $request['email'],
             'id_medsos' => $request['id_medsos'],
             'no_idcard' => $request['no_idcard'],
         ]);
+        // $path = public_path() . '/storage/';
 
+        // if ($user->no_idcard != ''  && $user->no_idcard != null) {
+        //     $file_old = $path . $user->no_idcard;
+        //     unlink($file_old);
+        // }
+
+        // $scan_idcard = $request->file('scan_idcard')->store('file/scan_idcard');
+        // $user->scan_idcard = $scan_idcard;
         // return view('user/update_profile');
-        return view('user/update_profile')->with('success', ' Data telah diperbaharui!');
+        // return redirect()->route('updateprofile')->with('success', ' Data telah diperbaharui!');
+        return redirect()->route('updateprofile');
     }
     public function Contact(Request $request)
     {
-
-
+        // dd($request->all());
+        $user = Auth::user()->id;
         $attr = $request->validate([
             'name' => 'required',
+            'user_id' => 'required',
             'connection' => 'required',
+            'phone' => 'required',
+            'id_medsos' => 'required',
+            'email' => 'required',
+            'address' => 'required'
+            // 'family_identity_card',
+
         ]);
-        $attr['user_id'] = auth()->user()->id;
+        $attr['user_id'] = $user;
         Contact::create($attr);
-        return redirect()->route('contactemergency');
+        dd('berhasil');
     }
     public function InfoAcedemic()
     {

@@ -14,15 +14,15 @@ class CreateContactsTable extends Migration
     public function up()
     {
         Schema::create('contacts', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(\App\Models\User::class, 'user_id');
+            // $table->id();
+            $table->foreignIdFor(\App\Models\User::class, 'id')->unique();
             $table->string('name');
             $table->string('connection');
             $table->string('phone')->unique();
             $table->string('id_medsos');
             $table->string('email');
             $table->string('address');
-            $table->string(' famil_identity_card');
+            $table->string('family_identity_card')->nullable();
             $table->timestamps();
         });
     }
