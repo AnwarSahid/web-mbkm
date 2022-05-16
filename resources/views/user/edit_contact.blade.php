@@ -64,7 +64,7 @@
         </div>
 
 
-        {{-- <div class="mb-6">
+        <div class="mb-6">
 
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="file_input">Upload SCAN
                 Kartu Keluarga</label>
@@ -85,10 +85,10 @@
                                 class="text-blue-600 hover:underline">select a file</a> from your computer
                         </p>
                     </div>
-                    <input type="file" class="hidden">
+                    <input type="file" class="hidden" name="family_identity_card">
                 </label>
             </div>
-        </div> --}}
+        </div>
 
 
         <button type="submit"

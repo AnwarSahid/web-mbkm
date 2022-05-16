@@ -176,7 +176,7 @@
                                     class="text-blue-600 hover:underline">select a file</a> from your computer
                             </p>
                         </div>
-                        <input type="file" class="hidden">
+                        <input type="file" class="hidden" name="scan_idcard">
                     </label>
                 </div>
             </div>

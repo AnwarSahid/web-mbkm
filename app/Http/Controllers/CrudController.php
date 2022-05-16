@@ -8,6 +8,7 @@ use App\Models\LearningAggrement;
 use App\Models\MbkmProgram;
 use App\Models\Medic;
 use App\Models\PersonalStatement;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,11 +50,17 @@ class CrudController extends Controller
             'phone' => 'required',
             'id_medsos' => 'required',
             'email' => 'required',
-            'address' => 'required'
-            // 'family_identity_card',
+            'address' => 'required',
+            'family_identity_card' => 'required|mimes:pdf,jpg,jpeg,png,jfif|max:2048',
 
         ]);
 
+        $file = $request->file('family_identity_card');
+        $destinationPath = 'storage/kk';
+        $name = $file->getClientOriginalName();
+        $file->move($destinationPath, $name);
+
+        $attr['family_identity_card'] = $name;
         $attr['id'] = $user;
         Contact::create($attr);
         return redirect()->route('contactemergency')->with('message', ' Data Kamu Telah Diupdate!');
@@ -96,8 +103,8 @@ class CrudController extends Controller
             'phone' => 'required',
             'id_medsos' => 'required',
             'email' => 'required',
-            'address' => 'required'
-            // 'family_identity_card',
+            'address' => 'required',
+            'family_identity_card' => 'required|mimes:pdf,jpg,jpeg,png,jfif|max:2048',
 
         ]);
         $user = Contact::find($id);
@@ -110,7 +117,17 @@ class CrudController extends Controller
             'email' => $request['email'],
 
         ]);
-
+        $path =  'storage/kk/';
+        if ($user->family_identity_card != ''  && $user->family_identity_card != null) {
+            $file_old = $path . $user->family_identity_card;
+            unlink($file_old);
+        }
+        $file = $request->file('family_identity_card');
+        $destinationPath = 'storage/kk';
+        $name = $file->getClientOriginalName();
+        $file->move($destinationPath, $name);
+        $user->family_identity_card = $name;
+        $user->save();
         return redirect()->route('contactemergency')->with('message', ' Data telah diperbaharui!');
     }
 
@@ -282,5 +299,67 @@ class CrudController extends Controller
 
         ]);
         return redirect()->route('personalstatement')->with('message', ' Data Kamu Telah Diupdate!');
+    }
+
+
+    public function Updateprofile(Request $request, User $user, $id)
+    {
+
+
+        $this->validate($request, [
+            'name' => 'required',
+            'npm' => 'required',
+            'place_of_birth' => 'required',
+            'address' => 'required',
+            'birth_date' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'nation' => 'required',
+            'gender' => 'required',
+            'id_medsos' => 'required',
+            'no_idcard' => 'required',
+            'scan_idcard' => 'required|mimes:pdf,jpg,jpeg,png,jfif|max:2048 '
+
+        ]);
+        $user = User::find($id);
+        $user->update([
+            'name' => $request['name'],
+            'npm' => $request['npm'],
+            'birth_date' => $request['birth_date'],
+            'place_of_birth' => $request['place_of_birth'],
+            'phone' => $request['phone'],
+            'nation' => $request['nation'],
+            'gender' => $request['gender'],
+            'address' => $request['address'],
+            'email' => $request['email'],
+            'id_medsos' => $request['id_medsos'],
+            'no_idcard' => $request['no_idcard'],
+        ]);
+        // $path = public_path() . '/storage/';
+
+        // if ($user->no_idcard != ''  && $user->no_idcard != null) {
+        //     $file_old = $path . $user->no_idcard;
+        //     unlink($file_old);
+        // }
+
+        // $scan_idcard = $request->file('scan_idcard')->store('file/scan_idcard');
+        // $user->scan_idcard = $scan_idcard;
+        // return view('user/update_profile');
+        // return redirect()->route('updateprofile')->with('success', ' Data telah diperbaharui!');
+        $path = public_path('/storage/ktp/');
+        if (!file_exists($path)) {
+            mkdir('storage/ktp/');
+        }
+        if ($user->scan_idcard != ''  && $user->scan_idcard != null) {
+            $file_old = $path . $user->scan_idcard;
+            unlink($file_old);
+        }
+        $file = $request->file('scan_idcard');
+        $destinationPath =  'storage/ktp ';
+        $name = $file->getClientOriginalName();
+        $file->move($destinationPath, $name);
+        $user->scan_idcard = $name;
+        $user->save();
+        return redirect()->route('updateprofile');
     }
 }

@@ -53,7 +53,7 @@
         </div>
 
 
-        {{-- <div class="mb-6">
+        <div class="mb-6">
 
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="file_input">Upload SCAN
                 Kartu Keluarga</label>
@@ -69,15 +69,13 @@
                                 d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                         </svg>
 
-                        <p class="pointer-none text-gray-500 "><span class="text-sm">Drag and
-                                drop</span> files here <br /> or <a href="" id=""
-                                class="text-blue-600 hover:underline">select a file</a> from your computer
+                        <p class="pointer-none text-gray-500 "><span class="text-sm">Click Here
                         </p>
                     </div>
-                    <input type="file" class="hidden">
+                    <input type="file" class="hidden" name="family_identity_card">
                 </label>
             </div>
-        </div> --}}
+        </div>
 
 
         <button type="submit"

@@ -30,7 +30,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::get('/update-profile', [ViewsController::class, 'Updateprofile'])->name('updateprofile');
-    Route::put('/update-profile/{id}', [UploadController::class, 'Updateprofile'])->name('pushupdateprofile');
+    Route::put('/update-profile/{id}', [CrudController::class, 'Updateprofile'])->name('pushupdateprofile');
     Route::get('/kontak-darurat', [ViewsController::class, 'Contact'])->name('contactemergency');
     Route::post('/kontak-darurat', [CrudController::class, 'store'])->name('postcontactemergency');
     Route::put('/kontak-darurat/edit{id}', [CrudController::class, 'update'])->name('updatecontactemergency');
