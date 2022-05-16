@@ -14,9 +14,8 @@ class CreatePersonalStatementsTable extends Migration
     public function up()
     {
         Schema::create('personal_statements', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(\App\Models\User::class, 'user_id');
-            $table->string('personal_statement');
+            $table->foreignIdFor(\App\Models\User::class, 'id')->unique();
+            $table->text('personal_statement');
             $table->timestamps();
         });
     }

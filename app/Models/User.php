@@ -81,4 +81,16 @@ class User extends Authenticatable
     {
         return $this->hasOne(Medic::class, 'id', 'id');
     }
+    public function getmbkm()
+    {
+        return $this->hasOne(MbkmProgram::class, 'id', 'id');
+    }
+    public function getla()
+    {
+        return $this->hasOne(LearningAggrement::class, 'id', 'id');
+    }
+    public function getps()
+    {
+        return $this->hasOne(PersonalStatement::class, 'id', 'id');
+    }
 }

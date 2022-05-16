@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Academic;
 use App\Models\Contact;
+use App\Models\LearningAggrement;
+use App\Models\MbkmProgram;
 use App\Models\Medic;
+use App\Models\PersonalStatement;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,14 +55,36 @@ class ViewsController extends Controller
     }
     public function SetMbkm()
     {
-        return view('user/program_mbkm');
+        $user = Auth::user();
+        $get_id = $user->id;
+        $check = MbkmProgram::where('id', $get_id)->exists();
+        if ($check) {
+            return view('user/edit_program_mbkm', compact('user'));
+        } else {
+            return view('user/program_mbkm', compact('user'));
+        }
     }
     public function InfoLerningAggrement()
     {
-        return view('user/learning_aggrement');
+        $user = Auth::user();
+        $get_id = $user->id;
+        $check = LearningAggrement::where('id', $get_id)->exists();
+        if ($check) {
+            return view('user/edit_learning_aggrement', compact('user'));
+        } else {
+            return view('user/learning_aggrement', compact('user'));
+        }
     }
     public function PersonalStatement()
     {
+        $user = Auth::user();
+        $get_id = $user->id;
+        $check = PersonalStatement::where('id', $get_id)->exists();
+        if ($check) {
+            return view('user/edit_personal_statement', compact('user'));
+        } else {
+            return view('user/personal_statement', compact('user'));
+        }
         return view('user/personal_statement');
     }
     public function Status()

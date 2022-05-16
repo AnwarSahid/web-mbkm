@@ -14,8 +14,8 @@ class CreateMbkmProgramsTable extends Migration
     public function up()
     {
         Schema::create('mbkm_programs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(\App\Models\User::class, 'user_id');
+            // $table->id();
+            $table->foreignIdFor(\App\Models\User::class, 'id')->unique();
             $table->string('program_mbkm');
             $table->timestamps();
         });

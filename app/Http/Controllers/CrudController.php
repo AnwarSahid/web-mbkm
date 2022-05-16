@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Academic;
 use App\Models\Contact;
+use App\Models\LearningAggrement;
+use App\Models\MbkmProgram;
 use App\Models\Medic;
+use App\Models\PersonalStatement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -203,5 +206,81 @@ class CrudController extends Controller
         ]);
 
         return redirect()->route('infomedic')->with('message', ' Data telah diperbaharui!');
+    }
+    public function storeMbkm(Request $request)
+    {
+        $user = Auth::user()->id;
+        $attr = $request->validate([
+            'program_mbkm' => 'required',
+        ]);
+        $attr['id'] = $user;
+        MbkmProgram::create($attr);
+        return redirect()->route('programmbkm')->with('message', ' Data Kamu Telah Diupdate!');
+    }
+
+    public function updateMbkm(Request $request, $id)
+    {
+        $this->validate($request, [
+            'program_mbkm' => 'required',
+
+        ]);
+        $user = MbkmProgram::find($id);
+        $user->update([
+            'program_mbkm' => $request['program_mbkm'],
+
+        ]);
+        return redirect()->route('programmbkm')->with('message', ' Data Kamu Telah Diupdate!');
+    }
+
+    public function StoreLerningAggrement(Request $request)
+    {
+        $user = Auth::user()->id;
+        $attr = $request->validate([
+            'sks' => 'required',
+            // 'learning_aggrement' => 'required',
+        ]);
+        $attr['id'] = $user;
+        LearningAggrement::create($attr);
+        return redirect()->route('learningaggrement')->with('message', ' Data Kamu Telah Diupdate!');
+    }
+
+    public function UpdateLerningAggrement(Request $request, $id)
+    {
+        $this->validate($request, [
+            'sks' => 'required',
+
+        ]);
+        $user = LearningAggrement::find($id);
+        $user->update([
+            'sks' => $request['sks'],
+
+        ]);
+        return redirect()->route('learningaggrement')->with('message', ' Data Kamu Telah Diupdate!');
+    }
+
+    public function StorePersonalStatement(Request $request)
+    {
+        $user = Auth::user()->id;
+        $attr = $request->validate([
+            'personal_statement' => 'required',
+            // 'learning_aggrement' => 'required',
+        ]);
+        $attr['id'] = $user;
+        PersonalStatement::create($attr);
+        return redirect()->route('personalstatement')->with('message', ' Data Kamu Telah Diupdate!');
+    }
+
+    public function UpdatePersonalStatement(Request $request, $id)
+    {
+        $this->validate($request, [
+            'personal_statement' => 'required',
+
+        ]);
+        $user = PersonalStatement::find($id);
+        $user->update([
+            'personal_statement' => $request['personal_statement'],
+
+        ]);
+        return redirect()->route('personalstatement')->with('message', ' Data Kamu Telah Diupdate!');
     }
 }

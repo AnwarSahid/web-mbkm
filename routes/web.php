@@ -41,8 +41,14 @@ Route::middleware([
     Route::post('/informasi-medis-dan-lainya', [CrudController::class, 'storeMedic'])->name('storemedic');
     Route::put('/informasi-medis-dan-lainya/{id}', [CrudController::class, 'updateMedic'])->name('updatemedic');
     Route::get('/program-MBKM', [ViewsController::class, 'setMbkm'])->name('programmbkm');
+    Route::post('/program-MBKM', [CrudController::class, 'storeMbkm'])->name('storembkm');
+    Route::put('/program-MBKM/{id}', [CrudController::class, 'updateMbkm'])->name('updatembkm');
     Route::get('/learning-aggrement', [ViewsController::class, 'InfoLerningAggrement'])->name('learningaggrement');
+    Route::post('/learning-aggrement', [CrudController::class, 'StoreLerningAggrement'])->name('store_LA');
+    Route::put('/learning-aggrement/{id}', [CrudController::class, 'UpdateLerningAggrement'])->name('update_LA');
     Route::get('/personal-statement', [ViewsController::class, 'PersonalStatement'])->name('personalstatement');
+    Route::post('/personal-statement', [CrudController::class, 'StorePersonalStatement'])->name('store_PS');
+    Route::put('/personal-statement/{id}', [CrudController::class, 'UpdatePersonalStatement'])->name('update_PS');
     Route::get('/contact', [ViewsController::class, 'contact'])->name('contact');
     Route::get('/status', [ViewsController::class, 'status'])->name('status');
     Route::get('/hasil-evaluasi', [ViewsController::class, 'HasilEvaluasi'])->name('hasilvaluasi');

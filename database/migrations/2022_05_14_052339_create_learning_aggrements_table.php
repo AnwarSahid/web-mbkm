@@ -14,10 +14,10 @@ class CreateLearningAggrementsTable extends Migration
     public function up()
     {
         Schema::create('learning_aggrements', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(\App\Models\User::class, 'user_id');
+
+            $table->foreignIdFor(\App\Models\User::class, 'id');
             $table->string('sks');
-            $table->string('learning_aggrement');
+            $table->string('learning_aggrement')->nullable();
             $table->timestamps();
         });
     }

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class MbkmProgram extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'id',
+        'program_mbkm',
+
+    ];
 }
