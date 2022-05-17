@@ -156,8 +156,21 @@ class CrudController extends Controller
             'semester' => 'required',
             'ipk' => 'required',
             'sks' => 'required',
-        ]);
+            'scan_transcript' => 'required|mimes:pdf,jpg,jpeg,png,jfif|max:2048',
+            'scan_krs' => 'required|mimes:pdf,jpg,jpeg,png,jfif|max:2048',
 
+        ]);
+        $file = $request->file('scan_transcript');
+        $file2 = $request->file('scan_krs');
+        $destinationPath = 'storage/transkrip';
+        $destinationPath2 = 'storage/krs';
+        $name = $file->getClientOriginalName();
+        $name2 = $file2->getClientOriginalName();
+        $file->move($destinationPath, $name);
+        $file2->move($destinationPath2, $name2);
+
+        $attr['scan_transcript'] = $name;
+        $attr['scan_krs'] = $name2;
         $attr['id'] = $user;
         Academic::create($attr);
 
@@ -176,6 +189,8 @@ class CrudController extends Controller
             'semester' => 'required',
             'ipk' => 'required',
             'sks' => 'required',
+            'scan_transcript' => 'required|mimes:pdf,jpg,jpeg,png,jfif|max:2048',
+            'scan_krs' => 'required|mimes:pdf,jpg,jpeg,png,jfif|max:2048',
 
         ]);
         $user = Academic::find($id);
@@ -190,6 +205,27 @@ class CrudController extends Controller
             'ipk' => $request['ipk'],
             'sks' => $request['sks'],
         ]);
+        $path =  'storage/transkrip/';
+        $path2 =  'storage/krs/';
+        if ($user->scan_transcript != ''  && $user->scan_transcript != null) {
+            $file_old = $path . $user->scan_transcript;
+            unlink($file_old);
+        }
+        if ($user->scan_krs != ''  && $user->scan_krs != null) {
+            $file_old = $path2 . $user->scan_krs;
+            unlink($file_old);
+        }
+        $file = $request->file('scan_transcript');
+        $file2 = $request->file('scan_krs');
+        $destinationPath = 'storage/kk';
+        $destinationPath2 = 'storage/kk';
+        $name = $file->getClientOriginalName();
+        $name2 = $file2->getClientOriginalName();
+        $file->move($destinationPath, $name);
+        $file2->move($destinationPath2, $name2);
+        $user->scan_transcript = $name;
+        $user->scan_krs = $name2;
+        $user->save();
 
         return redirect()->route('infoacademic')->with('message', ' Data telah diperbaharui!');
     }

@@ -47,7 +47,7 @@
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200">
                                     <span class="text-gray-600">Profile</span></a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200">
-                                    <span class="text-gray-600">Status</span></a>
+                                    <span class="text-gray-600">Reset Password</span></a>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit"
@@ -72,12 +72,14 @@
 
 
                         <div class="profile w-full flex m-3 ml-4 text-white">
-                            <img class="w-20 h-20 p-1 bg-white rounded-full"
-                                src="https://images.pexels.com/photos/61100/pexels-photo-61100.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb"
-                                alt="" />
+                            <div class="w-20 h-20 ">
+
+                                <img class="object-cover w-20 h-20  p-1 bg-white rounded-full "
+                                    src="{{ asset('/storage/photo/' . Auth::user()->profile_photo_path) }}" alt="" />
+                            </div>
                             <div class="pl-2">
                                 <p class="font-bold font-sans text-lg mt-8 text-gray-800 dark:text-white">
-                                    {{ Auth::user()->name }}</p>
+                                    {{ Auth::user()->name }} </p>
                                 <p class="text-sm font-sans  text-gray-800 dark:text-white">
                                     {{ Auth::user()->email }}</p>
                             </div>
@@ -90,7 +92,7 @@
                     <!-- This is an example component -->
                     <div class="max-full mx-auto">
 
-                        <aside class="w-full" aria-label="Sidebar">
+                        <div class="w-full" aria-label="Sidebar">
                             <div class="px-3 py-4 overflow-y-auto rounded bg-gray-50 dark:bg-gray-800">
                                 <ul class="space-y-2">
                                     <li>
@@ -106,88 +108,91 @@
                                             <span class="ml-3">Biodata</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="/kontak-darurat"
-                                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="h-6 w-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                                viewBox=" 0 0 20 20" fill="currentColor">
-                                                <path
-                                                    d="M14.414 7l3.293-3.293a1 1 0 00-1.414-1.414L13 5.586V4a1 1 0 10-2 0v4.003a.996.996 0 00.617.921A.997.997 0 0012 9h4a1 1 0 100-2h-1.586z" />
-                                                <path
-                                                    d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                                            </svg>
-                                            <span class="flex-1 ml-3 whitespace-nowrap">Kontak Darurat</span>
-                                            {{-- <span
-                                                class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span> --}}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/informasi-akademik"
-                                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="h-6 w-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                                viewBox="0 0 20 20" fill="currentColor">
-                                                <path
-                                                    d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
-                                            </svg>
-                                            <span class="flex-1 ml-3 whitespace-nowrap">Informasi Akademik</span>
-                                            {{-- <span
-                                                class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">3</span> --}}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/informasi-medis-dan-lainya"
-                                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="h-6 w-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                                viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd"
-                                                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                            <span class="flex-1 ml-3 whitespace-nowrap">Informasi Medis</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/program-MBKM"
-                                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="h-6 w-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                                viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd"
-                                                    d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                            <span class="flex-1 ml-3 whitespace-nowrap"> Program MBKM</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/learning-aggrement"
-                                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="h-6 w-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                                viewBox="0 0 20 20" fill="currentColor">
-                                                <path
-                                                    d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z" />
-                                                <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
-                                            </svg>
-                                            <span class="flex-1 ml-3 whitespace-nowrap">Learning Aggrement</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/personal-statement"
-                                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="h-6 w-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                                viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd"
-                                                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                            <span class="flex-1 ml-3 whitespace-nowrap">Personal Statment</span>
-                                        </a>
-                                    </li>
+                                    <div class="mx-5">
+
+                                        <li>
+                                            <a href="/kontak-darurat"
+                                                class=" flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class=" \ h-6 w-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                                    viewBox=" 0 0 20 20" fill="currentColor">
+                                                    <path
+                                                        d="M14.414 7l3.293-3.293a1 1 0 00-1.414-1.414L13 5.586V4a1 1 0 10-2 0v4.003a.996.996 0 00.617.921A.997.997 0 0012 9h4a1 1 0 100-2h-1.586z" />
+                                                    <path
+                                                        d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                                                </svg>
+                                                <span class="flex-1 ml-3 whitespace-nowrap">Kontak Darurat</span>
+                                                {{-- <span
+                                            class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span> --}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/informasi-akademik"
+                                                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-6 w-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                                    viewBox="0 0 20 20" fill="currentColor">
+                                                    <path
+                                                        d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
+                                                </svg>
+                                                <span class="flex-1 ml-3 whitespace-nowrap">Informasi Akademik</span>
+                                                {{-- <span
+                                                    class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">3</span> --}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/informasi-medis-dan-lainya"
+                                                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-6 w-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                                    viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                                <span class="flex-1 ml-3 whitespace-nowrap">Informasi Medis</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/program-MBKM"
+                                                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-6 w-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                                    viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                        d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                                <span class="flex-1 ml-3 whitespace-nowrap"> Program MBKM</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/learning-aggrement"
+                                                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-6 w-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                                    viewBox="0 0 20 20" fill="currentColor">
+                                                    <path
+                                                        d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z" />
+                                                    <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+                                                </svg>
+                                                <span class="flex-1 ml-3 whitespace-nowrap">Learning Aggrement</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/personal-statement"
+                                                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-6 w-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                                    viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                                <span class="flex-1 ml-3 whitespace-nowrap">Personal Statment</span>
+                                            </a>
+                                        </li>
+                                    </div>
                                     <li>
                                         <a href="/status"
                                             class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -217,7 +222,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </aside>
+                        </div>
                     </div>
                 </div>
 

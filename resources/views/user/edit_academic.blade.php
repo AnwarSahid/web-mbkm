@@ -17,19 +17,21 @@
             <div id="adduniv">
                 <label for="university" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Asal
                     Univeristas</label>
+
                 <select id="university" name="university"
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option value="{{ $user->getacademic->university }}">{{ $user->getacademic->university }}
                     </option>
                     <option value="Universitas Lampung">Universitas Lampung</option>
-                    <option value="lainya">lainya</option>
+                    <option value="">lainya</option>
                 </select>
 
             </div>
             <div>
                 <label for="accreditation_university"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    Akreditasi Universitas</label>
+                    Akreditasi Universitas
+                </label>
                 <select id="accreditation_university" name="accreditation_university"
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option value="{{ $user->getacademic->accreditation_university }}">
@@ -47,28 +49,33 @@
             <div>
                 <label for="faculty"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Fakultas</label>
-                <select id="faculty" name="faculty"
-                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 
-                    <option value="{{ $user->getacademic->getfakultas->id }}">
-                        {{ $user->getacademic->getfakultas->fakultas }}</option>
-                    @foreach ($fakultas as $fakultas)
-                        <option value="{{ $fakultas->id }}">
-                            {{ $fakultas->fakultas }}
-                        </option>
-                    @endforeach
-                </select>
+                <div id="inputfaculty">
+
+                    <select id="faculty" name="faculty"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="{{ $user->getacademic->faculty }}">
+                            {{ $user->getacademic->faculty }}</option>
+                        @foreach ($fakultas as $fakultas)
+                            <option value="{{ $fakultas->id }}">
+                                {{ $fakultas->fakultas }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
             <div>
                 <label for="study_program"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Program studi</label>
-                <select id="prodi" name="study_program"
-                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="{{ $user->getacademic->getprodi->id }}">
-                        {{ $user->getacademic->getprodi->prodi }}</option>
+                <div id="inputprodi">
+                    <select id="prodi" name="study_program"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="{{ $user->getacademic->study_program }}">
+                            {{ $user->getacademic->study_program }}</option>
 
-                </select>
+                    </select>
+                </div>
             </div>
             <div>
                 <label for="accreditation_study_program"
@@ -162,7 +169,7 @@
                                 class="text-blue-600 hover:underline">select a file</a> from your computer
                         </p>
                     </div>
-                    <input type="file" class="hidden">
+                    <input type="file" class="hidden" name="scan_transcript">
                 </label>
             </div>
         </div>
@@ -186,7 +193,7 @@
                                 class="text-blue-600 hover:underline">select a file</a> from your computer
                         </p>
                     </div>
-                    <input type="file" class="hidden">
+                    <input type="file" class="hidden" name="scan_krs">
                 </label>
             </div>
         </div>
@@ -203,14 +210,17 @@ crossorigin="anonymous"></script>
     $('#university').change(function() {
         var kabID = $(this).val();
         console.log(kabID);
-        if (kabID == 'Univeritas Lampung') {
+        if (kabID == 'Universitas Lampung') {
             $.ajax({
                 type: "GET",
                 url: "/getfakultas?kabID=" + kabID,
                 dataType: 'JSON',
                 success: function(res) {
                     if (res) {
+                        const element = document.getElementById('other_university');
+                        element.remove();
                         $("#faculty").empty();
+                        $("#other_university").empty();
                         $("#faculty").append('<option>---Pilih Fakultas---</option>');
                         $.each(res, function(fakultas, id) {
                             $("#faculty").append('<option value="' + id + '">' + fakultas +
@@ -222,9 +232,24 @@ crossorigin="anonymous"></script>
                         $("#prodi").empty();
                         $("#faculty").empty();
                     }
+
                 }
             });
         } else {
+
+            $("#adduniv").append(
+                '<input type="text" id="other_university" name="university" class="bg-gray-50 mt-5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukan Univeritas">'
+            );
+            const getfaculty = document.getElementById('faculty');
+            getfaculty.remove();
+            const getprodi = document.getElementById('prodi');
+            getprodi.remove();
+            $("#inputfaculty").append(
+                '<input type="text" id="other_faculty" name="faculty" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Masukan Fakultas">'
+            );
+            $("#inputprodi").append(
+                '<input type="text" id="other_faculty" name="study_program" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Masukan Prodi">'
+            );
 
         }
     });

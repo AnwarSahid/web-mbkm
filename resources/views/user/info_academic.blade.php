@@ -13,14 +13,14 @@
     <form action="{{ route('storeacademic') }}" enctype="multipart/form-data" method="POST">
         @csrf
         <div class="grid gap-6 mb-6 lg:grid-cols-2">
-            <div>
+            <div id="adduniv">
                 <label for="university" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Asal
                     Univeristas</label>
                 <select id="university" name="university"
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option value="">Pilih Universitas</option>
                     <option value="Universitas Lampung">Universitas Lampung</option>
-                    <option value="lainya">lainya</option>
+                    <option value="">lainya</option>
                 </select>
             </div>
             <div>
@@ -43,37 +43,41 @@
             <div>
                 <label for="faculty"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Fakultas</label>
-                <select id="faculty" name="faculty"
-                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="">
-                        @if (empty($user->getfakultas->id))
-                            Pilih Fakultas
-                        @else
-                            {{ $user->getfakultas->fakultas }}
-                        @endif
-                    </option>
-                    @foreach ($fakultas as $fakultas)
-                        <option value="{{ $fakultas->id }}">
-                            {{ $fakultas->fakultas }}
+                <div id="inputfaculty">
+                    <select id="faculty" name="faculty"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="">
+                            @if (empty($user->getacademic->faculty))
+                                Pilih Fakultas
+                            @else
+                                {{ $user->getacademic->faculty }}
+                            @endif
                         </option>
-                    @endforeach
-                </select>
+                        @foreach ($fakultas as $fakultas)
+                            <option value="{{ $fakultas->id }}">
+                                {{ $fakultas->fakultas }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
             <div>
                 <label for="study_program"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Program studi</label>
-                <select id="prodi" name="study_program"
-                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="">
-                        @if (empty($user->getprodi->id))
-                            Pilih Prodi
-                        @else
-                            {{ $user->getprodi->prodi }}
-                        @endif
-                    </option>
+                <div id="inputprodi">
+                    <select id="prodi" name="study_program"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="">
+                            @if (empty($user->getprodi->id))
+                                Pilih Prodi
+                            @else
+                                {{ $user->getprodi->prodi }}
+                            @endif
+                        </option>
 
-                </select>
+                    </select>
+                </div>
             </div>
             <div>
                 <label for="accreditation_study_program"
@@ -164,7 +168,7 @@
                                 class="text-blue-600 hover:underline">select a file</a> from your computer
                         </p>
                     </div>
-                    <input type="file" class="hidden">
+                    <input type="file" class="hidden" name="scan_transcript">
                 </label>
             </div>
         </div>
@@ -188,7 +192,7 @@
                                 class="text-blue-600 hover:underline">select a file</a> from your computer
                         </p>
                     </div>
-                    <input type="file" class="hidden">
+                    <input type="file" class="hidden" name="scan_krs">
                 </label>
             </div>
         </div>
@@ -204,12 +208,58 @@
 crossorigin="anonymous"></script>
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 <script>
-    $('#faculty').change(function() {
+    $('#university').change(function() {
         var kabID = $(this).val();
-        if (kabID) {
+        console.log(kabID);
+        if (kabID == 'Universitas Lampung') {
             $.ajax({
                 type: "GET",
-                url: "/getprodi?kabID=" + kabID,
+                url: "/getfakultas?kabID=" + kabID,
+                dataType: 'JSON',
+                success: function(res) {
+                    if (res) {
+                        const element = document.getElementById('other_university');
+                        element.remove();
+                        $("#faculty").empty();
+                        $("#other_university").empty();
+                        $("#faculty").append('<option>---Pilih Fakultas---</option>');
+                        $.each(res, function(fakultas, id) {
+                            $("#faculty").append('<option value="' + id + '">' + fakultas +
+                                '</option>');
+                        });
+
+
+                    } else {
+                        $("#prodi").empty();
+                        $("#faculty").empty();
+                    }
+
+                }
+            });
+        } else {
+
+            $("#adduniv").append(
+                '<input type="text" id="other_university" name="university" class="bg-gray-50 mt-5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukan Univeritas">'
+            );
+            const getfaculty = document.getElementById('faculty');
+            getfaculty.remove();
+            const getprodi = document.getElementById('prodi');
+            getprodi.remove();
+            $("#inputfaculty").append(
+                '<input type="text" id="other_faculty" name="faculty" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Masukan Fakultas">'
+            );
+            $("#inputprodi").append(
+                '<input type="text" id="other_faculty" name="study_program" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Masukan Prodi">'
+            );
+
+        }
+    });
+    $('#faculty').change(function() {
+        var prodiID = $(this).val();
+        if (prodiID) {
+            $.ajax({
+                type: "GET",
+                url: "/getprodi?prodiID=" + prodiID,
                 dataType: 'JSON',
                 success: function(res) {
                     if (res) {
@@ -219,11 +269,40 @@ crossorigin="anonymous"></script>
                             $("#prodi").append('<option value="' + id + '">' + prodi +
                                 '</option>');
                         });
+
                     } else {
                         $("#prodi").empty();
+
                     }
                 }
             });
         }
     });
+
+
+
+
+
+    // $('#faculty').change(function() {
+    //     var kabID = $(this).val();
+    //     if (kabID) {
+    //         $.ajax({
+    //             type: "GET",
+    //             url: "/getprodi?kabID=" + kabID,
+    //             dataType: 'JSON',
+    //             success: function(res) {
+    //                 if (res) {
+    //                     $("#prodi").empty();
+    //                     $("#prodi").append('<option>---Pilih prodi---</option>');
+    //                     $.each(res, function(prodi, id) {
+    //                         $("#prodi").append('<option value="' + id + '">' + prodi +
+    //                             '</option>');
+    //                     });
+    //                 } else {
+    //                     $("#prodi").empty();
+    //                 }
+    //             }
+    //         });
+    //     }
+    // });
 </script>
