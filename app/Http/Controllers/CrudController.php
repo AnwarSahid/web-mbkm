@@ -254,8 +254,14 @@ class CrudController extends Controller
         $user = Auth::user()->id;
         $attr = $request->validate([
             'sks' => 'required',
-            // 'learning_aggrement' => 'required',
+            'learning_aggrement' => 'required|mimes:pdf,doc,docm,docx,|max:2048 ',
         ]);
+        $file = $request->file('learning_aggrement');
+        $destinationPath = 'storage/Learning_Agreement';
+        $name = $file->getClientOriginalName();
+        $file->move($destinationPath, $name);
+
+        $attr['learning_aggrement'] = $name;
         $attr['id'] = $user;
         LearningAggrement::create($attr);
         return redirect()->route('learningaggrement')->with('message', ' Data Kamu Telah Diupdate!');
@@ -265,13 +271,28 @@ class CrudController extends Controller
     {
         $this->validate($request, [
             'sks' => 'required',
-
+            'learning_aggrement' => 'required|mimes:pdf,doc,docm,docx,|max:2048 ',
         ]);
+
         $user = LearningAggrement::find($id);
         $user->update([
             'sks' => $request['sks'],
-
         ]);
+        $path = public_path('/storage/Learning_Agreement/');
+        if (!file_exists($path)) {
+            mkdir('storage/Learning_Agreement/');
+        }
+        if ($user->learning_aggrement != ''  && $user->learning_aggrement != null) {
+            $file_old = $path . $user->learning_aggrement;
+            unlink($file_old);
+        }
+
+        $file = $request->file('learning_aggrement');
+        $destinationPath =  'storage/Learning_Agreement ';
+        $name = $file->getClientOriginalName();
+        $file->move($destinationPath, $name);
+        $user->learning_aggrement = $name;
+        $user->save();
         return redirect()->route('learningaggrement')->with('message', ' Data Kamu Telah Diupdate!');
     }
 
@@ -280,7 +301,7 @@ class CrudController extends Controller
         $user = Auth::user()->id;
         $attr = $request->validate([
             'personal_statement' => 'required',
-            // 'learning_aggrement' => 'required',
+
         ]);
         $attr['id'] = $user;
         PersonalStatement::create($attr);
@@ -318,7 +339,8 @@ class CrudController extends Controller
             'gender' => 'required',
             'id_medsos' => 'required',
             'no_idcard' => 'required',
-            'scan_idcard' => 'required|mimes:pdf,jpg,jpeg,png,jfif|max:2048 '
+            'scan_idcard' => 'required|mimes:pdf,jpg,jpeg,png,jfif|max:2048 ',
+            'profile_photo_path' => 'required|mimes:jpg,jpeg,png,jfif|max:2048 '
 
         ]);
         $user = User::find($id);
@@ -335,31 +357,34 @@ class CrudController extends Controller
             'id_medsos' => $request['id_medsos'],
             'no_idcard' => $request['no_idcard'],
         ]);
-        // $path = public_path() . '/storage/';
 
-        // if ($user->no_idcard != ''  && $user->no_idcard != null) {
-        //     $file_old = $path . $user->no_idcard;
-        //     unlink($file_old);
-        // }
-
-        // $scan_idcard = $request->file('scan_idcard')->store('file/scan_idcard');
-        // $user->scan_idcard = $scan_idcard;
-        // return view('user/update_profile');
-        // return redirect()->route('updateprofile')->with('success', ' Data telah diperbaharui!');
         $path = public_path('/storage/ktp/');
+        $path2 = public_path('/storage/photo/');
         if (!file_exists($path)) {
             mkdir('storage/ktp/');
+        }
+        if (!file_exists($path2)) {
+            mkdir('storage/photo/');
         }
         if ($user->scan_idcard != ''  && $user->scan_idcard != null) {
             $file_old = $path . $user->scan_idcard;
             unlink($file_old);
         }
+        if ($user->profile_photo_path != ''  && $user->profile_photo_path != null) {
+            $file_old = $path2 . $user->profile_photo_path;
+            unlink($file_old);
+        }
         $file = $request->file('scan_idcard');
+        $file2 = $request->file('profile_photo_path');
         $destinationPath =  'storage/ktp ';
+        $destinationPath2 =  'storage/photo ';
         $name = $file->getClientOriginalName();
+        $name2 = $file2->getClientOriginalName();
         $file->move($destinationPath, $name);
+        $file2->move($destinationPath2, $name2);
         $user->scan_idcard = $name;
+        $user->profile_photo_path = $name2;
         $user->save();
-        return redirect()->route('updateprofile');
+        return redirect()->route('updateprofile')->with('message', ' Data Kamu Telah Diupdate!');
     }
 }

@@ -47,12 +47,11 @@
                                     <span class="text-gray-600">Profile</span></a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200">
                                     <span class="text-gray-600">Status</span></a>
-                                <form method="POST" action="{{ route('logout') }}" class="inline">
+                                <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-
                                     <button type="submit"
-                                        class="underline text-sm text-gray-600 hover:text-gray-900 ml-2">
-                                        {{ __('Log Out') }}
+                                        class="block text-left w-full px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200">
+                                        <span class="text-gray-600">{{ __('Log Out') }}</span>
                                     </button>
                                 </form>
                             </div>

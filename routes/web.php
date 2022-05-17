@@ -51,7 +51,9 @@ Route::middleware([
     Route::put('/personal-statement/{id}', [CrudController::class, 'UpdatePersonalStatement'])->name('update_PS');
     Route::get('/contact', [ViewsController::class, 'contact'])->name('contact');
     Route::get('/status', [ViewsController::class, 'status'])->name('status');
-    Route::get('/hasil-evaluasi', [ViewsController::class, 'HasilEvaluasi'])->name('hasilvaluasi');
+    Route::get('/hasil-evaluasi', [ViewsController::class, 'Evaluation'])->name('evaluation');
+    Route::post('/hasil-evaluasi', [CrudController::class, 'StoreEvaluation'])->name('storevaluation');
+    Route::put('/hasil-evaluasi/{id}', [CrudController::class, 'UpdateEvaluation'])->name('updateevaluation');
 });
 
 Route::middleware('auth')->group(function () {
