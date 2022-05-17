@@ -4,19 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Academic;
 use App\Models\Contact;
+use App\Models\Evaluation;
+use App\Models\Fakultas;
 use App\Models\LearningAggrement;
 use App\Models\MbkmProgram;
 use App\Models\Medic;
 use App\Models\PersonalStatement;
+use App\Models\prodi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use DB;
+
 class ViewsController extends Controller
 {
+
     public function Updateprofile()
     {
         $user = Auth::user();
+
         return view('user/update_profile', compact('user'));
     }
     public function Contact()
@@ -34,12 +41,14 @@ class ViewsController extends Controller
     public function InfoAcedemic()
     {
         $user = Auth::user();
+        $fakultas = Fakultas::all();
+        $prodi = prodi::all();
         $get_id = $user->id;
         $check = Academic::where('id', $get_id)->exists();
         if ($check) {
-            return view('user/edit_academic', compact('user'));
+            return view('user/edit_academic', compact('user', 'fakultas', 'prodi'));
         } else {
-            return view('user/info_academic', compact('user'));
+            return view('user/info_academic', compact('user', 'fakultas', 'prodi'));
         }
     }
     public function InfoMedic()
@@ -77,6 +86,7 @@ class ViewsController extends Controller
     }
     public function PersonalStatement()
     {
+
         $user = Auth::user();
         $get_id = $user->id;
         $check = PersonalStatement::where('id', $get_id)->exists();
@@ -85,15 +95,37 @@ class ViewsController extends Controller
         } else {
             return view('user/personal_statement', compact('user'));
         }
-        return view('user/personal_statement');
     }
     public function Status()
     {
         $user = Auth::user();
         return view('user/status', compact("user"));
     }
-    public function HasilEvaluasi()
+    public function Evaluation()
     {
-        return view('user/hasil_evaluasi');
+        $user = Auth::user();
+        $get_id = $user->id;
+        $check = Evaluation::where('id', $get_id)->exists();
+        if ($check) {
+            return view('user/edit_hasil_evaluasi', compact('user'));
+        } else {
+            return view('user/hasil_evaluasi', compact('user'));
+        }
+        // return view('user/hasil_evaluasi');
+    }
+    public function getprodi(Request $request)
+    {
+
+
+        $prodi = prodi::where("fakultas_id", $request->prodiID)->pluck('id', 'prodi');
+        // $prodi = Fakultas::all()->pluck('id', 'fakultas');
+        return response()->json($prodi);
+        // return response()->json($fakultas);
+    }
+    public function getfakultas(Request $request)
+    {
+        $fakultas = Fakultas::all()->pluck('id', 'fakultas');
+        return response()->json($fakultas);
+        // return response()->json($fakultas);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Academic;
 use App\Models\Contact;
+use App\Models\Evaluation;
 use App\Models\LearningAggrement;
 use App\Models\MbkmProgram;
 use App\Models\Medic;
@@ -21,8 +22,8 @@ class CrudController extends Controller
      */
     public function index()
     {
-        //
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -386,5 +387,49 @@ class CrudController extends Controller
         $user->profile_photo_path = $name2;
         $user->save();
         return redirect()->route('updateprofile')->with('message', ' Data Kamu Telah Diupdate!');
+    }
+
+
+    public function StoreEvaluation(Request $request)
+    {
+        $user = Auth::user()->id;
+
+        $attr = $request->validate([
+            'evaluation' => 'required|mimes:pdf,doc,docm,docx,|max:2048 ',
+        ]);
+        $file = $request->file('evaluation');
+        $destinationPath = 'storage/Hasil_MBKM';
+        $name = $file->getClientOriginalName();
+        $file->move($destinationPath, $name);
+
+        $attr['evaluation'] = $name;
+        $attr['id'] = $user;
+        Evaluation::create($attr);
+        return redirect()->route('evaluation')->with('message', ' Data Kamu Telah Diupdate!');
+    }
+
+    public function UpdateEvaluation(Request $request, $id)
+    {
+        $this->validate($request, [
+            'evaluation' => 'required|mimes:pdf,doc,docm,docx,|max:2048 ',
+        ]);
+        $user = Evaluation::find($id);
+
+        $path = public_path('/storage/Hasil_MBKM/');
+        if (!file_exists($path)) {
+            mkdir('storage/Hasil_MBKM/');
+        }
+        if ($user->evaluation != ''  && $user->evaluation != null) {
+            $file_old = $path . $user->evaluation;
+            unlink($file_old);
+        }
+
+        $file = $request->file('evaluation');
+        $destinationPath =  'storage/Hasil_MBKM ';
+        $name = $file->getClientOriginalName();
+        $file->move($destinationPath, $name);
+        $user->evaluation = $name;
+        $user->save();
+        return redirect()->route('evaluation')->with('message', ' Data Kamu Telah Diupdate!');
     }
 }

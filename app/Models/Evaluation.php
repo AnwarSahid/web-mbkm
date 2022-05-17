@@ -9,6 +9,7 @@ class Evaluation extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'evaluation'
+        'evaluation',
+        'id'
     ];
 }

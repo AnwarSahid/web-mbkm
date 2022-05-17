@@ -22,4 +22,13 @@ class Academic extends Model
         'scan_transcript',
         'scan_krs',
     ];
+
+    public function getfakultas()
+    {
+        return $this->hasOne(Fakultas::class, 'id', 'faculty');
+    }
+    public function getprodi()
+    {
+        return $this->hasOne(prodi::class, 'id', 'study_program');
+    }
 }

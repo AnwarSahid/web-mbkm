@@ -45,30 +45,34 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Fakultas</label>
                 <select id="faculty" name="faculty"
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="">Pilih Fakultas</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="Unggul">Unggul</option>
-                    <option value="Baik Sekali">Baik Sekali</option>
-                    <option value="Baik">Baik</option>
-                    <option value="Tidak Terakreditasi">Tidak Terakreditasi</option>
+                    <option value="">
+                        @if (empty($user->getfakultas->id))
+                            Pilih Fakultas
+                        @else
+                            {{ $user->getfakultas->fakultas }}
+                        @endif
+                    </option>
+                    @foreach ($fakultas as $fakultas)
+                        <option value="{{ $fakultas->id }}">
+                            {{ $fakultas->fakultas }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 
             <div>
                 <label for="study_program"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Program studi</label>
-                <select id="study_program" name="study_program"
+                <select id="prodi" name="study_program"
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="">Pilih Prodi</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="Unggul">Unggul</option>
-                    <option value="Baik Sekali">Baik Sekali</option>
-                    <option value="Baik">Baik</option>
-                    <option value="Tidak Terakreditasi">Tidak Terakreditasi</option>
+                    <option value="">
+                        @if (empty($user->getprodi->id))
+                            Pilih Prodi
+                        @else
+                            {{ $user->getprodi->prodi }}
+                        @endif
+                    </option>
+
                 </select>
             </div>
             <div>
@@ -196,3 +200,30 @@
 
 
 </x-app-layout>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+crossorigin="anonymous"></script>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+<script>
+    $('#faculty').change(function() {
+        var kabID = $(this).val();
+        if (kabID) {
+            $.ajax({
+                type: "GET",
+                url: "/getprodi?kabID=" + kabID,
+                dataType: 'JSON',
+                success: function(res) {
+                    if (res) {
+                        $("#prodi").empty();
+                        $("#prodi").append('<option>---Pilih prodi---</option>');
+                        $.each(res, function(prodi, id) {
+                            $("#prodi").append('<option value="' + id + '">' + prodi +
+                                '</option>');
+                        });
+                    } else {
+                        $("#prodi").empty();
+                    }
+                }
+            });
+        }
+    });
+</script>

@@ -9,6 +9,7 @@
     <script src="../path/to/flowbite/dist/datepicker.js"></script>
     <script src="https://unpkg.com/flowbite@1.4.5/dist/datepicker.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Document</title>
 </head>
 

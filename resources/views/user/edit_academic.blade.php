@@ -14,7 +14,7 @@
         @csrf
         @method('PUT')
         <div class="grid gap-6 mb-6 lg:grid-cols-2">
-            <div>
+            <div id="adduniv">
                 <label for="university" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Asal
                     Univeristas</label>
                 <select id="university" name="university"
@@ -24,6 +24,7 @@
                     <option value="Universitas Lampung">Universitas Lampung</option>
                     <option value="lainya">lainya</option>
                 </select>
+
             </div>
             <div>
                 <label for="accreditation_university"
@@ -48,39 +49,32 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Fakultas</label>
                 <select id="faculty" name="faculty"
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="{{ $user->getacademic->faculty }}">
-                        {{ $user->getacademic->faculty }}</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="Unggul">Unggul</option>
-                    <option value="Baik Sekali">Baik Sekali</option>
-                    <option value="Baik">Baik</option>
-                    <option value="Tidak Terakreditasi">Tidak Terakreditasi</option>
+
+                    <option value="{{ $user->getacademic->getfakultas->id }}">
+                        {{ $user->getacademic->getfakultas->fakultas }}</option>
+                    @foreach ($fakultas as $fakultas)
+                        <option value="{{ $fakultas->id }}">
+                            {{ $fakultas->fakultas }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 
             <div>
                 <label for="study_program"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Program studi</label>
-                <select id="study_program" name="study_program"
+                <select id="prodi" name="study_program"
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="{{ $user->getacademic->study_program }}">
-                        {{ $user->getacademic->study_program }}</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="Unggul">Unggul</option>
-                    <option value="Baik Sekali">Baik Sekali</option>
-                    <option value="Baik">Baik</option>
-                    <option value="Tidak Terakreditasi">Tidak Terakreditasi</option>
+                    <option value="{{ $user->getacademic->getprodi->id }}">
+                        {{ $user->getacademic->getprodi->prodi }}</option>
+
                 </select>
             </div>
             <div>
                 <label for="accreditation_study_program"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Akreditasi Program
                     studi</label>
-                <select id="accreditation_study_program" name="accreditation_study_program"
+                <select id="prodi" name="accreditation_study_program"
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option value="{{ $user->getacademic->accreditation_study_program }}">
                         {{ $user->getacademic->accreditation_study_program }}</option>
@@ -202,3 +196,87 @@
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
     </form>
 </x-app-layout>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+crossorigin="anonymous"></script>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+<script>
+    $('#university').change(function() {
+        var kabID = $(this).val();
+        console.log(kabID);
+        if (kabID == 'Univeritas Lampung') {
+            $.ajax({
+                type: "GET",
+                url: "/getfakultas?kabID=" + kabID,
+                dataType: 'JSON',
+                success: function(res) {
+                    if (res) {
+                        $("#faculty").empty();
+                        $("#faculty").append('<option>---Pilih Fakultas---</option>');
+                        $.each(res, function(fakultas, id) {
+                            $("#faculty").append('<option value="' + id + '">' + fakultas +
+                                '</option>');
+                        });
+
+
+                    } else {
+                        $("#prodi").empty();
+                        $("#faculty").empty();
+                    }
+                }
+            });
+        } else {
+
+        }
+    });
+    $('#faculty').change(function() {
+        var prodiID = $(this).val();
+        if (prodiID) {
+            $.ajax({
+                type: "GET",
+                url: "/getprodi?prodiID=" + prodiID,
+                dataType: 'JSON',
+                success: function(res) {
+                    if (res) {
+                        $("#prodi").empty();
+                        $("#prodi").append('<option>---Pilih prodi---</option>');
+                        $.each(res, function(prodi, id) {
+                            $("#prodi").append('<option value="' + id + '">' + prodi +
+                                '</option>');
+                        });
+
+                    } else {
+                        $("#prodi").empty();
+
+                    }
+                }
+            });
+        }
+    });
+
+
+
+
+
+    // $('#faculty').change(function() {
+    //     var kabID = $(this).val();
+    //     if (kabID) {
+    //         $.ajax({
+    //             type: "GET",
+    //             url: "/getprodi?kabID=" + kabID,
+    //             dataType: 'JSON',
+    //             success: function(res) {
+    //                 if (res) {
+    //                     $("#prodi").empty();
+    //                     $("#prodi").append('<option>---Pilih prodi---</option>');
+    //                     $.each(res, function(prodi, id) {
+    //                         $("#prodi").append('<option value="' + id + '">' + prodi +
+    //                             '</option>');
+    //                     });
+    //                 } else {
+    //                     $("#prodi").empty();
+    //                 }
+    //             }
+    //         });
+    //     }
+    // });
+</script>

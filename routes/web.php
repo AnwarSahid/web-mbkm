@@ -6,6 +6,7 @@ use App\Http\Controllers\CrudController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ViewsController;
+use Illuminate\Routing\ViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,10 @@ Route::middleware([
     Route::get('/hasil-evaluasi', [ViewsController::class, 'Evaluation'])->name('evaluation');
     Route::post('/hasil-evaluasi', [CrudController::class, 'StoreEvaluation'])->name('storevaluation');
     Route::put('/hasil-evaluasi/{id}', [CrudController::class, 'UpdateEvaluation'])->name('updateevaluation');
+    Route::get('/getprodi', [ViewsController::class, 'getprodi']);
+    Route::get('/getprodi/{id}', [ViewsController::class, 'getprodi']);
+    Route::get('/getfakultas', [ViewsController::class, 'getfakultas']);
+    Route::get('/getfakultas/{id}', [ViewsController::class, 'getfakultas']);
 });
 
 Route::middleware('auth')->group(function () {

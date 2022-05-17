@@ -17,8 +17,8 @@ class CreateAcademicsTable extends Migration
             $table->foreignIdFor(\App\Models\User::class, 'id');
             $table->string('university');
             $table->string('accreditation_university');
-            $table->string('faculty');
-            $table->string('study_program');
+            $table->foreignIdFor(\App\Models\Fakultas::class, 'faculty');
+            $table->foreignIdFor(\App\Models\prodi::class, 'study_program');
             $table->string('accreditation_study_program');
             $table->string('educational_degree');
             $table->string('semester');
